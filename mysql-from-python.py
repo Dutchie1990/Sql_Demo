@@ -1,4 +1,5 @@
 import os
+import datetime
 import pymysql
 
 username = os.getenv('user')
@@ -8,9 +9,8 @@ connection = pymysql.connect(
 
 try:
     with connection.cursor() as cursor:
-        sql = "SELECT * FROM Artist LIMIT 5;"
-        cursor.execute(sql)
-        result = cursor.fetchall()
-        print(result)
+        row = ("Bob", 21, "1990-12-02 23:04:56")
+        cursor.execute("INSERT INTO Friends VALUES (%s, %s, %s)", row)
+        connection.commit()
 finally:
     connection.close()
